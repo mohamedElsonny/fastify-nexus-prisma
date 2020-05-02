@@ -1,0 +1,41 @@
+{
+  "name": "typescript-graphql",
+  "scripts": {
+    "start": "env-cmd -f .env node dist",
+    "clean": "rm -rf dist",
+    "save": "env-cmd -f .env prisma migrate save --experimental",
+    "up": "env-cmd -f .env prisma migrate up --experimental --auto-approve --create-db",
+    "build": "env-cmd -f .env yarn -s run clean && yarn -s run generate && tsc",
+    "generate": "yarn -s run generate:prisma && yarn -s run generate:nexus",
+    "generate:prisma": "env-cmd -f .env prisma generate",
+    "deploy": "yarn save && yarn up && yarn generate",
+    "generate:nexus": "env-cmd -f .env ts-node --transpile-only src/schema",
+    "postinstall": "yarn -s run generate",
+    "dev": "env-cmd -f .env ts-node-dev --no-notify --respawn --transpileOnly src"
+  },
+  "dependencies": {
+    "@nexus/schema": "^0.13.1",
+    "@prisma/client": "^2.0.0-beta.4",
+    "@types/node-fetch": "^2.5.7",
+    "fastify": "^2.14.0",
+    "fastify-gql": "^3.3.0",
+    "graphql": "^14.x",
+    "nexus-prisma": "^0.12.0"
+  },
+  "devDependencies": {
+    "@prisma/cli": "^2.0.0-beta.4",
+    "@types/node": "^13.13.4",
+    "env-cmd": "^10.1.0",
+    "ts-node": "^8.9.1",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.8.3"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false,
+    "trailingComma": "all"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  }
+}

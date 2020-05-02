@@ -1,0 +1,22 @@
+datasource db {
+  provider = "postgresql"
+  url = "***"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Post {
+  id       String    @default(cuid()) @id
+  title    String
+  body     String
+  comments Comment[]
+}
+
+model Comment {
+  id      String  @default(cuid()) @id
+  content String
+  Post    Post?   @relation(fields: [postId], references: [id])
+  postId  String?
+}
