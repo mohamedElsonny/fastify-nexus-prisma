@@ -1,5 +1,5 @@
 {
-  "name": "typescript-graphql",
+  "name": "fastify-nexus-prisma",
   "scripts": {
     "start": "env-cmd -f .env node dist",
     "clean": "rm -rf dist",
